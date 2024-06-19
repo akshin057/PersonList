@@ -1,5 +1,6 @@
 package com.example.personlist;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,14 +54,21 @@ public class MainActivity extends AppCompatActivity {
             ageET.getText().clear();
         });
 
-        users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user = (User) adapter.getItem(position);
-                adapter.remove(user);
-                Snackbar.make(main, "Пользователь удален", Snackbar.LENGTH_SHORT).show();
-
-            }
+        users.setOnItemClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Внимание!!!")
+                    .setMessage("Удалить пользователя?")
+                    .setCancelable(false)
+                    .setNegativeButton("Нет", (dialog, which) -> {
+                        dialog.cancel();
+                    })
+                    .setPositiveButton("Да", (dialog, which) -> {
+                        User user = (User) adapter.getItem(position);
+                        adapter.remove(user);
+                        dialog.cancel();
+                        Snackbar.make(Objects.requireNonNull(getCurrentFocus()), "Пользователь удален", Snackbar.LENGTH_SHORT).show();
+                    });
+            builder.create().show();
         });
 
 
@@ -90,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.exitBTN){
+        if (item.getItemId() == R.id.exitBTN) {
             finish();
         }
 
