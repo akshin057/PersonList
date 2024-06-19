@@ -55,20 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         users.setOnItemClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Внимание!!!")
-                    .setMessage("Удалить пользователя?")
-                    .setCancelable(false)
-                    .setNegativeButton("Нет", (dialog, which) -> {
-                        dialog.cancel();
-                    })
-                    .setPositiveButton("Да", (dialog, which) -> {
-                        User user = (User) adapter.getItem(position);
-                        adapter.remove(user);
-                        dialog.cancel();
-                        Snackbar.make(Objects.requireNonNull(getCurrentFocus()), "Пользователь удален", Snackbar.LENGTH_SHORT).show();
-                    });
-            builder.create().show();
+            MyAlertDialog.createDialog(MainActivity.this, position, adapter);
         });
 
 
