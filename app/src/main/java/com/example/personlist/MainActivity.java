@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Removable {
 
     Toolbar toolbarTB;
     EditText nameET;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ListView users;
     ConstraintLayout main;
     List<User> list = new ArrayList<>();
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initUI();
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
         users.setAdapter(adapter);
 
         addBTN.setOnClickListener(v -> {
@@ -55,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         users.setOnItemClickListener((parent, view, position, id) -> {
-            MyAlertDialog.createDialog(MainActivity.this, position, adapter);
+            String user = adapter.getItem(position).toString();
+            MyAlertDialog dialog = new MyAlertDialog();
+            Bundle args = new Bundle();
+            args.putString("user", user);
+            dialog.setArguments(args);
+            dialog.show(getSupportFragmentManager(), "custom");
+
         });
 
 
@@ -92,5 +99,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void remove(String user) {
+        if (list.size() > 0){
+            for (User user1 : list){
+                if (user1.toString().equals(user)){
+                    adapter.remove(user1);
+                    return;
+                }
+            }
+        }
+
     }
 }
