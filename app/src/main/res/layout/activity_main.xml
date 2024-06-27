@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/img">
+    android:background="@drawable/img_1">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarTB"
@@ -67,6 +67,7 @@
         android:id="@+id/listViewLV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         app:layout_constraintTop_toBottomOf="@id/addingLineLL"
         />
 

@@ -45,21 +45,4 @@ public class MyAlertDialog extends DialogFragment {
                 })).create();
     }
 
-//    public static void createDialog(Context context, int position, ArrayAdapter adapter) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setTitle("Внимание!!!")
-//                .setMessage("Удалить пользователя?")
-//                .setCancelable(false)
-//                .setNegativeButton("Нет", (dialog, which) -> {
-//                    dialog.cancel();
-//                })
-//                .setPositiveButton("Да", (dialog, which) -> {
-//                    User user = (User) adapter.getItem(position);
-//                    adapter.remove(user);
-//                    dialog.cancel();
-//                    Toast.makeText(context, "Пользователь успешно удален", Toast.LENGTH_SHORT).show();
-//                });
-//        builder.create().show();
-//    }
-
 }

@@ -1,6 +1,11 @@
 package com.example.personlist;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class User  {
     private String name;
     private int age;
 
@@ -8,7 +13,6 @@ public class User {
         this.name = name;
         this.age = age;
     }
-
 
     @Override
     public String toString() {
